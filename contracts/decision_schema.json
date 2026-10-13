@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SettlixDecision",
+  "description": "Locked contract Day 1 — AI proposes, Safety Engine validates. Changes only by team agreement.",
+  "type": "object",
+  "required": ["incident_id", "action", "confidence", "reasoning_summary", "evidence", "rule_version"],
+  "properties": {
+    "incident_id": { "type": "string", "description": "Incident UUID being decided" },
+    "action": { "type": "string", "enum": ["WAIT", "REPLACE", "ESCALATE"], "description": "WAIT=recheck later, REPLACE=issue replacement payment, ESCALATE=human review" },
+    "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0, "description": "Calibrated confidence. <0.80 MUST escalate (Safety Engine enforces)." },
+    "reasoning_summary": { "type": "string", "minLength": 10, "description": "Auditable, evidence-grounded summary. No raw chain-of-thought, no prompt-injected content." },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tool", "summary"],
+        "properties": {
+          "tool": { "type": "string" },
+          "summary": { "type": "string" },
+          "ref_id": { "type": "string" }
+        }
+      }
+    },
+    "next_check_at": { "type": ["string", "null"], "format": "date-time", "description": "Required when action==WAIT" },
+    "duplicate_risk": {
+      "type": "object",
+      "required": ["is_duplicate_risk", "matched_on"],
+      "properties": {
+        "is_duplicate_risk": { "type": "boolean" },
+        "matched_on": { "type": "array", "items": { "type": "string" } },
+        "existing_payment_id": { "type": ["string", "null"] }
+      }
+    },
+    "rule_version": { "type": "string", "example": "safety-v1" }
+  }
+}

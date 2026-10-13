@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SettlixIncident",
+  "description": "Locked contract Day 1 — incident row shape shared by backend, agent, frontend, simulator.",
+  "type": "object",
+  "required": ["id", "payment_id", "type", "status", "priority", "summary", "created_at"],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "payment_id": { "type": "string", "format": "uuid" },
+    "type": { "type": "string", "enum": ["OVERDUE", "FAILED", "UNKNOWN_STATUS", "RETURNED", "AMBIGUOUS"] },
+    "status": { "type": "string", "enum": ["OPEN", "INVESTIGATING", "WAITING", "ESCALATED", "RESOLVED", "FAILED"] },
+    "priority": { "type": "string", "enum": ["P1", "P2", "P3"] },
+    "summary": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "resolved_at": { "type": ["string", "null"], "format": "date-time" }
+  }
+}
