@@ -24,8 +24,7 @@ cd frontend && npm install && npm run dev
 - `frontend/` — React+TS+Tailwind: Overview, IncidentCard, KPI cards, Detail shell
 - `tests/test_phase1_integration.py` — full flow test
 
-## Team
-P1 lidiya (AI), P2 kishoreram (safety), P3 kumar (frontend), P4 vikram/lidiya (sim/infra/QA/demo).
+
 
 ## Next (Phase 2)
 Detector + Safety Engine (WAIT/REPLACE/ESCALATE), Duplicate Guard, idempotency, WebSocket live UI.
